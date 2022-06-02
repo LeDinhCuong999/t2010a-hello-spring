@@ -34,6 +34,12 @@ public class StudentController {
         return list;
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public Student save(@RequestBody Student student){
+        list.add(student);
+        return student;
+    }
+
     @RequestMapping(method = RequestMethod.GET, path = "{id}")
     public Student findById(@PathVariable String id){
         int foundIndex = -1;
@@ -47,12 +53,6 @@ public class StudentController {
             return null;
         }
         return list.get(foundIndex);
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public Student save(@RequestBody Student student){
-        list.add(student);
-        return student;
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "{id}")
@@ -72,7 +72,7 @@ public class StudentController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "{id}")
-    public Student edit(@PathVariable String id, @RequestBody Student student){
+    public Student update(@PathVariable String id, @RequestBody Student updateStudent){
         int foundIndex = -1;
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getRollNumber().equals(id)) {
@@ -84,10 +84,10 @@ public class StudentController {
             return null;
         }
         Student exitingStudent = list.get(foundIndex);
-        exitingStudent.setFullName(student.getFullName());
-        exitingStudent.setPhone(student.getPhone());
-        exitingStudent.setAddress(student.getAddress());
-        exitingStudent.setDob(student.getDob());
+        exitingStudent.setFullName(updateStudent.getFullName());
+        exitingStudent.setPhone(updateStudent.getPhone());
+        exitingStudent.setAddress(updateStudent.getAddress());
+        exitingStudent.setDob(updateStudent.getDob());
 
         return exitingStudent;
     }
